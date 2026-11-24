@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1730">
+  <meta name="description" content="GSIA Crypto Academy : apprendre la blockchain, suivre les marchés et s'entraîner sans argent réel.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>GSIA Crypto Academy</title>
+  <style>
+    :root{--bg:#081225;--panel:#101f3a;--panel2:#142746;--gold:#e4bd62;--text:#f5f7fb;--muted:#aab7ca;--line:#263957;--green:#54d69a;--red:#ff8585}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#0d1d38,#071020 60%);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,sans-serif}
+    header{padding:22px max(18px,calc((100% - 1080px)/2));border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .brand{font-weight:900;letter-spacing:.7px;font-size:20px}.brand span{color:var(--gold)}.tag{font-size:11px;color:var(--muted)}
+    main{max-width:1080px;margin:auto;padding:22px 16px 60px}.hero{padding:26px;border:1px solid #344766;border-radius:22px;background:linear-gradient(120deg,#14294b,#0c1b34);margin-bottom:18px}
+    h1{font-size:clamp(27px,5vw,42px);line-height:1.1;margin:8px 0 12px}.gold{color:var(--gold)}p{color:var(--muted);line-height:1.55}
+    .notice{padding:12px 14px;border:1px solid #66552f;background:#322a18;color:#f5dfaa;border-radius:12px;font-size:13px;margin-top:16px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:16px 0}.card{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:18px}
+    h2{font-size:20px;margin:4px 0 12px}h3{font-size:16px;margin:4px 0 8px}.muted{color:var(--muted)}.big{font-size:26px;font-weight:800}
+    button,.btn{border:0;border-radius:11px;padding:11px 15px;background:var(--gold);color:#1c1a12;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block}
+    button.secondary,.btn.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}button:disabled{opacity:.5;cursor:not-allowed}
+    input,select{width:100%;background:#09162b;color:white;border:1px solid var(--line);padding:11px;border-radius:10px;margin:6px 0 10px}
+    label{font-size:13px;color:var(--muted)}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.coin{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.coin:last-child{border:0}
+    .price{font-weight:800;text-align:right}.small{font-size:12px;color:var(--muted)}.positive{color:var(--green)}.negative{color:var(--red)}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.tabs button{background:var(--panel);border:1px solid var(--line);color:var(--text)}.tabs button.active{background:var(--gold);color:#1c1a12}
+    section[hidden]{display:none}.lesson{padding:13px 0;border-bottom:1px solid var(--line)}footer{border-top:1px solid var(--line);padding:20px;text-align:center;color:var(--muted);font-size:12px}
+    .progress{height:8px;background:#263957;border-radius:20px;overflow:hidden}.progress i{display:block;height:100%;background:var(--gold);width:0}
+    @media(max-width:520px){header{align-items:flex-start;flex-direction:column}.hero{padding:20px}}
+  </style>
+</head>
+<body>
+<header>
+  <div><div class="brand">GSIA <span>CRYPTO ACADEMY</span></div><div class="tag">APPRENDRE • COMPRENDRE • SIMULER</div></div>
+  <div class="row"><button class="secondary" id="installBtn" hidden>Installer l'application</button><a class="btn secondary" id="tgTop" href="https://t.me/share/url?url=https%3A%2F%2Fexample.com&text=Découvre%20GSIA%20Crypto%20Academy" target="_blank" rel="noopener">Partager sur Telegram</a></div>
+</header>
+<main>
+  <div class="hero">
+    <div class="tag gold">L'ÉDUCATION FINANCIÈRE NUMÉRIQUE</div>
+    <h1>Comprends la crypto.<br><span class="gold">Décide avec prudence.</span></h1>
+    <p>Découvre les bases de la blockchain, observe les cours et entraîne-toi avec un portefeuille fictif. Aucun dépôt, achat ou transfert d'argent n'est effectué dans cette application.</p>
+    <div class="row"><button onclick="showTab('learn')">Commencer à apprendre</button><button class="secondary" onclick="showTab('practice')">Essayer la simulation</button></div>
+    <div class="notice"><b>Important :</b> la simulation utilise de l'argent fictif. Les prix affichés sont informatifs et peuvent être retardés. Ce service ne donne pas de conseil financier.</div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="home" onclick="showTab('home')">Accueil</button>
+    <button data-tab="markets" onclick="showTab('markets')">Marchés</button>
+    <button data-tab="learn" onclick="showTab('learn')">Formations</button>
+    <button data-tab="practice" onclick="showTab('practice')">Simulation</button>
+    <button data-tab="community" onclick="showTab('community')">Communauté</button>
+  </nav>
+
+  <section id="home">
+    <div class="grid">
+      <div class="card"><div class="muted">Votre progression</div><div class="big" id="progressText">0 %</div><div class="progress"><i id="progressBar"></i></div><p class="small">Termine les leçons pour progresser.</p></div>
+      <div class="card"><div class="muted">Solde fictif de simulation</div><div class="big" id="homeBalance">10 000,00 $</div><p class="small">Capital pédagogique, sans valeur réelle.</p></div>
+      <div class="card"><div class="muted">Objectif de la plateforme</div><div class="big">0 dépôt</div><p class="small">Apprendre avant toute décision financière.</p></div>
+    </div>
+    <div class="card"><h2>Parcours conseillé</h2><p>1. Comprendre la blockchain · 2. Découvrir Bitcoin et Ethereum · 3. Identifier les arnaques · 4. S'entraîner en simulation.</p><button onclick="showTab('learn')">Voir les leçons</button></div>
+  </section>
+
+  <section id="markets" hidden>
+    <div class="card"><div class="row" style="justify-content:space-between"><h2>Suivi des marchés</h2><button class="secondary" id="refreshBtn">Actualiser</button></div><p>Prix indicatifs en dollars US (USD), fournis par CoinGecko lorsque le service est disponible.</p><div id="marketList"><p>Chargement des données…</p></div><div class="small" id="marketStatus">Les données ne constituent pas une recommandation d'achat ou de vente.</div><p class="small">Source des données : <a href="https://www.coingecko.com/" target="_blank" rel="noopener" style="color:var(--gold)">CoinGecko</a>.</p></div>
+  </section>
+
+  <section id="learn" hidden>
+    <div class="card"><h2>Mini-formation : les fondamentaux</h2><p>Lis chaque module puis marque-le comme terminé. Le contenu est éducatif et ne garantit aucun gain.</p><div id="lessons"></div></div>
+  </section>
+
+  <section id="practice" hidden>
+    <div class="grid">
+      <div class="card"><div class="muted">Portefeuille fictif</div><div class="big" id="simBalance">10 000,00 $</div><p class="small">Capital initial fictif : 10 000 USD.</p><button class="secondary" id="resetSim">Réinitialiser</button></div>
+      <div class="card"><h3>Entraînement d'achat fictif</h3><label for="asset">Actif</label><select id="asset"><option value="bitcoin">Bitcoin (BTC)</option><option value="ethereum">Ethereum (ETH)</option><option value="solana">Solana (SOL)</option></select><label for="amount">Montant fictif en USD</label><input id="amount" type="number" min="1" step="1" placeholder="Ex. 100"><button id="buySim">Simuler un achat</button><p class="small">Aucune transaction réelle n'est envoyée sur une blockchain.</p></div>
+    </div>
+    <div class="card"><h3>Positions fictives</h3><div id="positions"><p class="muted">Aucune position simulée.</p></div></div>
+  </section>
+
+  <section id="community" hidden>
+    <div class="grid">
+      <div class="card"><h2>Rejoindre la communauté</h2><p>Crée un canal Telegram public pour partager les cours, les annonces et les conseils de sécurité pédagogique.</p><a class="btn" href="https://t.me/" target="_blank" rel="noopener">Ouvrir Telegram</a></div>
+      <div class="card"><h2>Partager l'application</h2><p>Invite des amis à découvrir gratuitement les bases de la crypto.</p><button id="shareBtn">Partager l'application</button></div>
+    </div>
+    <div class="card"><h3>Offre Premium (à activer après validation)</h3><p>Des cours approfondis, des ateliers en direct et des supports téléchargeables pourront être proposés contre un abonnement clairement affiché. Aucun paiement n'est collecté dans cette première version.</p></div>
+  </section>
+</main>
+<footer>© <span id="year"></span> GSIA CRYPTO ACADEMY · Projet éducatif indépendant · Pas un établissement financier.</footer>
+<script>
+const APP_URL = location.href.split("?")[0];
+const lessons = [
+ ["La blockchain","Une blockchain est un registre numérique partagé. Les transactions sont regroupées en blocs reliés cryptographiquement."],
+ ["Bitcoin et Ethereum","Bitcoin est un réseau monétaire décentralisé. Ethereum est une blockchain programmable qui héberge notamment des contrats intelligents."],
+ ["Volatilité et risques","Le prix des cryptoactifs peut fortement monter ou baisser. Il est possible de perdre la totalité d'une somme investie."],
+ ["Arnaques à éviter","Méfie-toi des rendements garantis, des faux supports techniques, des liens inconnus et des demandes de phrase secrète."],
+ ["Sécurité numérique","Ne partage jamais ta phrase de récupération, tes mots de passe ou tes codes à usage unique. Active l'authentification à deux facteurs."]
+];
+const defaults = {balance:10000,positions:{},done:[]};
+let sim = loadSim();
+function loadSim(){try{return {...defaults,...JSON.parse(localStorage.getItem("gsiaCryptoSim")||"{}")}}catch{return {...defaults}}}
+function saveSim(){localStorage.setItem("gsiaCryptoSim",JSON.stringify(sim));renderSim();renderHome()}
+function money(n){return Number(n).toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2})+" $"}
+function showTab(id){document.querySelectorAll("main section").forEach(s=>s.hidden=s.id!==id);document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));if(id==="markets")loadMarkets()}
+function renderLessons(){document.getElementById("lessons").innerHTML=lessons.map((l,i)=>`<div class="lesson"><h3>${i+1}. ${l[0]}</h3><p>${l[1]}</p><button class="${sim.done.includes(i)?"secondary":""}" onclick="toggleLesson(${i})">${sim.done.includes(i)?"Terminé ✓":"Marquer comme terminé"}</button></div>`).join("");renderHome()}
+function toggleLesson(i){sim.done=sim.done.includes(i)?sim.done.filter(x=>x!==i):[...sim.done,i];saveSim();renderLessons()}
+function renderHome(){let p=Math.round(sim.done.length/lessons.length*100);document.getElementById("progressText").textContent=p+" %";document.getElementById("progressBar").style.width=p+"%";document.getElementById("homeBalance").textContent=money(sim.balance)}
+function renderSim(){document.getElementById("simBalance").textContent=money(sim.balance);let entries=Object.entries(sim.positions);document.getElementById("positions").innerHTML=entries.length?entries.map(([k,v])=>`<div class="coin"><span>${k.toUpperCase()}</span><b>${v.toFixed(6)} unités fictives</b></div>`).join(""):'<p class="muted">Aucune position simulée.</p>'}
+let prices={bitcoin:65000,ethereum:3200,solana:150};
+async function loadMarkets(){
+ const el=document.getElementById("marketList"),status=document.getElementById("marketStatus");el.innerHTML="<p>Chargement…</p>";
+ try{
+  const url="https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd";
+  const r=await fetch(url,{headers:{accept:"application/json"}});
+  if(!r.ok)throw new Error("Service indisponible");
+  const d=await r.json();["bitcoin","ethereum","solana"].forEach(k=>{if(d[k]?.usd)prices[k]=d[k].usd});
+  status.textContent="Dernière consultation : "+new Date().toLocaleString("fr-FR");
+ }catch(e){status.textContent="Cours indicatifs de démonstration affichés : connexion au fournisseur indisponible."}
+ const names={bitcoin:"Bitcoin (BTC)",ethereum:"Ethereum (ETH)",solana:"Solana (SOL)"};
+ el.innerHTML=Object.keys(prices).map(k=>`<div class="coin"><div><b>${names[k]}</b><div class="small">${k}</div></div><div class="price">${money(prices[k])}</div></div>`).join("");
+}
+document.getElementById("refreshBtn").onclick=loadMarkets;
+document.getElementById("buySim").onclick=()=>{let k=document.getElementById("asset").value,a=Number(document.getElementById("amount").value);if(!Number.isFinite(a)||a<=0)return alert("Entre un montant valide.");if(a>sim.balance)return alert("Solde fictif insuffisant.");sim.balance-=a;sim.positions[k]=(sim.positions[k]||0)+a/prices[k];saveSim();document.getElementById("amount").value="";alert("Simulation enregistrée. Aucune transaction réelle n'a été effectuée.")};
+document.getElementById("resetSim").onclick=()=>{if(confirm("Réinitialiser le portefeuille fictif ?")){sim.balance=10000;sim.positions={};saveSim()}};
+document.getElementById("shareBtn").onclick=()=>{let u=encodeURIComponent(APP_URL),t=encodeURIComponent("Découvre GSIA Crypto Academy : apprendre la crypto sans déposer d'argent.");window.open("https://t.me/share/url?url="+u+"&text="+t,"_blank","noopener")};
+document.getElementById("tgTop").href="https://t.me/share/url?url="+encodeURIComponent(APP_URL)+"&text="+encodeURIComponent("Découvre GSIA Crypto Academy.");
+document.getElementById("year").textContent=new Date().getFullYear();
+renderLessons();renderSim();renderHome();
+let installPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installPrompt=e;let b=document.getElementById("installBtn");b.hidden=false;b.onclick=async()=>{installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;b.hidden=true}});
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
+</script>
+</body></html>

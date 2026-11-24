@@ -1,0 +1,11 @@
+{
+  "name": "GSIA Crypto Academy",
+  "short_name": "GSIA Crypto",
+  "description": "Apprendre la blockchain et simuler sans argent réel.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#081225",
+  "theme_color": "#0b1730",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
